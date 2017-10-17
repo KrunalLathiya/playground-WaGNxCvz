@@ -1,4 +1,4 @@
-# Welcome!
+# Angular Dependency Injection Tutorial!
 
 Dependency injection is an important application design pattern. Angular has its own dependency injection framework, and you really can’t build an Angular application without it. It’s used so widely that almost everyone just calls it <b>DI</b>.
 
