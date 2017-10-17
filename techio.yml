@@ -1,0 +1,9 @@
+title: Angular Project
+plan:
+- title: Welcome
+  statement: markdowns/welcome.md
+projects:
+  angular:
+    root: /angular-project
+    runner:
+      name: techio/node-angular-runner
