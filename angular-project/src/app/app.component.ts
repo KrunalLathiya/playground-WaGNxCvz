@@ -1,4 +1,7 @@
+// app.component.ts
+
 import { Component } from '@angular/core';
+import { Computer } from './Computer';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Your tech.io Angular app works! 🎉';
+    public computer: Computer;
+
+    constructor()
+    // tslint:disable-next-line:one-line
+    {
+        this.computer = new Computer();
+    }
+  makeComputer()
+  // tslint:disable-next-line:one-line
+  {
+    return this.computer.complete();
+  }
 }
