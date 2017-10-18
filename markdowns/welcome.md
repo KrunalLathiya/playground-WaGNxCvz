@@ -119,4 +119,84 @@ And to change the view, edit the <b>app.component.html</b>
 At [Server](http://localhost:4200/)
 You can see the String like This Matrix computer has 2 monitors, 3 cpus, and 1 keyboard.!!
 
+# Example With Dependency Injection(DI)
+
+If we are using Dependency Injection then, we do not need to create the instances in the constructor.
+
+First, we need to provide all the dependencies to the <b>app.module.ts</b> class.
+```javascript
+// app.module.ts
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { Monitor } from './Monitor';
+import { CPU } from './CPU';
+import { Keyboard } from './Keyboard';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [Monitor, CPU, Keyboard],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+In providers array, we need to provide all three dependencies.
+
+Then, In the <b>Computer.ts</b> class, inject those dependencies into Computer’s constructor.
+```javascript
+// Computer.ts
+
+import { Monitor } from './Monitor';
+import { CPU } from './CPU';
+import { Keyboard } from './Keyboard';
+
+export class Computer { 
+ constructor(public monitor: Monitor, public cpu: CPU, public keyboard: Keyboard) {}
+ public description = 'This Matrix computer';
+  complete() {
+    return `${this.description} has ` +
+      `${this.monitor.monitorNo} monitors, ${this.cpu.cpuNo} cpus, and ${this.keyboard.keyboardNo} keyboard.`;
+  }
+}
+```
+Finally, modify the <b>app.component.ts</b> file.
+```javascript
+// app.component.ts
+
+import { Component } from '@angular/core';
+import { Computer } from './Computer';
+import { Monitor } from './Monitor';
+import { CPU } from './CPU';
+import { Keyboard } from './Keyboard';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+public computer: Computer;	
+constructor(){
+    this.computer = new Computer(new Monitor(), new CPU(), new Keyboard());
+}
+ makeComputer(){
+  	return this.computer.complete();
+  }
+}
+```
+So, we have passed the argument at the time of creation of Computer instance.
+
+When computer instance is created at that time, also all the other instances of other classes are also created.
+
+After, save this file, the output will be the same as previous one.
+
+Basic <b>Angular Dependency Injection Tutorial Example</b> is over.
+
 @[Angular Dependency Injection]({"stubs": ["src/app/app.module.ts", "src/app/app.component.ts", "src/app/app.component.html", "src/app/Monitor.ts", "src/app/Keyboard.ts", "src/app/CPU.ts", "src/app/Computer.ts"], "command": "./run.sh"})
